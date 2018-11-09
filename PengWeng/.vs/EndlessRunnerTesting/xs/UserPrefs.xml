@@ -1,0 +1,19 @@
+﻿<Properties StartupConfiguration="{BE04F231-C017-F0BD-1597-E75A3507CD4E}|">
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PenguinGame/__Scripts/FollowCam.cs">
+    <Files>
+      <File FileName="Assets/PenguinGame/__Scripts/FollowCam.cs" Line="39" Column="34" />
+      <File FileName="Assets/PenguinGame/__Scripts/CharController.cs" Line="238" Column="6" />
+      <File FileName="Assets/WorldTileManager.cs" Line="19" Column="11" />
+      <File FileName="Assets/GameController.cs" Line="38" Column="26" />
+      <File FileName="../../_workRepo/depot/User/mmoheeka/FBAR/Unity/ARSignifiers_0/Assets/SignifiersExamples/_scripts/VisualsManager.cs" Line="1" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.Assembly-CSharp-Editor PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+</Properties>
