@@ -671,9 +671,10 @@ MonoBehaviour:
   cameraOffset: {x: 0, y: 0, z: 0}
   smoothSpeed: 0.005
   _characterController: {fileID: 591483681}
-  camPull: 0
+  camZoomOut: 0
+  camZoomIn: 0
   currentLerpTime: 0
-  lerpTime: 1
+  lerpTime: 2
 --- !u!1001 &344396142
 Prefab:
   m_ObjectHideFlags: 0
@@ -919,11 +920,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 95e5be24e352c40adb10b16e2e344a82, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &344396143 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1143751782493950, guid: 95e5be24e352c40adb10b16e2e344a82,
-    type: 2}
-  m_PrefabInternal: {fileID: 344396142}
 --- !u!43 &398677470
 Mesh:
   m_ObjectHideFlags: 0
@@ -1166,7 +1162,7 @@ MonoBehaviour:
   isJumping: 0
   isGrounding: 0
   isGrounded: 0
-  isOnObstacle: 0
+  hitRamp: 0
   isInTheAir: 0
   currentLane: 0
 --- !u!4 &591483682
@@ -1237,9 +1233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 60
   tileTypes:
-  - {fileID: 1216240323}
-  - {fileID: 780257897}
-  - {fileID: 344396143}
+  - {fileID: 1079140089356188, guid: 91315e9edafc044ed90c62b43ab7ddf2, type: 2}
   tileSize: 9
 --- !u!1001 &780257896
 Prefab:
@@ -1387,11 +1381,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91315e9edafc044ed90c62b43ab7ddf2, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &780257897 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1079140089356188, guid: 91315e9edafc044ed90c62b43ab7ddf2,
-    type: 2}
-  m_PrefabInternal: {fileID: 780257896}
 --- !u!43 &799764790
 Mesh:
   m_ObjectHideFlags: 0
@@ -2456,11 +2445,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cdcb8a7ffde3e493e805db2e2c4d4bd0, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &1216240323 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1525657064702760, guid: cdcb8a7ffde3e493e805db2e2c4d4bd0,
-    type: 2}
-  m_PrefabInternal: {fileID: 1216240322}
 --- !u!43 &1267687734
 Mesh:
   m_ObjectHideFlags: 0

@@ -1,12 +1,12 @@
 ﻿<Properties StartupConfiguration="{6AEF4C3C-42FC-7F68-FE79-B0674FFE5C06}|">
   <MonoDevelop.Ide.ItemProperties.Assembly-CSharp PreferredExecutionTarget="Unity.Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PenguinGame/__Scripts/CharController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/PenguinGame/__Scripts/FollowCam.cs">
     <Files>
-      <File FileName="Assets/PenguinGame/__Scripts/FollowCam.cs" Line="37" Column="47" />
-      <File FileName="Assets/PenguinGame/__Scripts/CharController.cs" Line="114" Column="40" />
+      <File FileName="Assets/PenguinGame/__Scripts/CharController.cs" Line="128" Column="1" />
       <File FileName="Assets/PenguinGame/Shaders/Curved.shader" Line="32" Column="2" />
       <File FileName="Assets/PenguinGame/__Scripts/CurveController.cs" Line="19" Column="21" />
       <File FileName="Assets/PenguinGame/__Scripts/WorldTileManager.cs" Line="1" Column="1" />
+      <File FileName="Assets/PenguinGame/__Scripts/FollowCam.cs" Line="94" Column="74" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

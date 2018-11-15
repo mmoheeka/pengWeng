@@ -32,7 +32,7 @@ public class CharController : MonoBehaviour
     public bool isJumping;
     public bool isGrounding;
     public bool isGrounded;
-    public bool isOnObstacle;
+    public bool hitRamp;
     public bool isInTheAir;
 
     [System.Serializable]
@@ -115,27 +115,25 @@ public class CharController : MonoBehaviour
         {
             if (objectHit.transform.tag == "Ground")
             {
-                //Debug.Log("Ground is being hit");
-                //Debug.ClearDeveloperConsole();
                 isInTheAir = false;
+                isGrounded = true;
+
             }
 
             if (objectHit.transform.tag == "Ramp")
             {
-                //Debug.Log("Going up ramp");
                 rb.AddForce(0, forceAmount, .15f, ForceMode.Impulse);
-                if (rb.velocity.y > 5)
-                {
-                    //Debug.Log("pull back character");
-                }
-
-                isOnObstacle = true;
+                hitRamp = true;
+            }
+            else
+            {
+                hitRamp = false;
             }
         }
 
         if (hits.Length < 1)
         {
-            //Debug.Log("Nothing Hit");
+            isGrounded = false;
             isInTheAir = true;
         }
 

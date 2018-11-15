@@ -9,9 +9,13 @@ public class FollowCam : MonoBehaviour
     public Transform camTarget;
     public Vector3 cameraOffset;
     public float smoothSpeed = .125f;
+    public float camFOV;
+
 
     public CharController _characterController;
-    public bool camPull;
+    public bool camZoomOut;
+    public bool camZoomIn;
+    public bool currentlyBoosting;
 
     public float currentLerpTime;
     public float lerpTime;
@@ -25,6 +29,7 @@ public class FollowCam : MonoBehaviour
         cameraOffset.y -= 3;
 
         cam = GetComponent<Camera>();
+
         //cam.fieldOfView = cameraPullAmount;
     }
 
@@ -37,36 +42,64 @@ public class FollowCam : MonoBehaviour
         transform.position = smoothedPosition;
 
 
-        //if (_characterController.rb.velocity.y > 6)
-        //{
-        //    camPull = true;
-
-        //    if (camPull)
-        //    {
-
-        //        currentLerpTime += Time.deltaTime;
-
-        //        if (currentLerpTime > lerpTime)
-        //        {
-        //            currentLerpTime = lerpTime;
-        //        }
-        //        float perc = currentLerpTime / lerpTime;
-        //        cam.fieldOfView = Mathf.Lerp(60, 120, perc);
-
-        //        if (currentLerpTime >= 1)
-        //        {
-        //            currentLerpTime = 0;
-        //            camPull = false;
-        //        }
-
-        //    }
-        //}
-        //if (!_characterController.isInTheAir)
-        //{
-
-        //    cam.fieldOfView = 60;
-        //}
+        if (_characterController.hitRamp)
+        {
+            StartCoroutine(SpeedPowerUpOn());
+        }
 
 
     }
+
+    IEnumerator SpeedPowerUpOn()
+    {
+        if (camZoomOut) yield break;
+        camZoomOut = true;
+        lerpTime = 2;
+        currentLerpTime = 0;
+        while (currentLerpTime < lerpTime && camZoomOut && !currentlyBoosting)
+        {
+            currentLerpTime += Time.deltaTime;
+            if (currentLerpTime > lerpTime)
+            {
+                currentLerpTime = lerpTime;
+            }
+            float perc = Mathf.Clamp01(currentLerpTime / lerpTime);
+
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 120, perc * .25f);
+            yield return null;
+        }
+        currentlyBoosting = true;
+        camZoomOut = false;
+        currentLerpTime = 0;
+
+        yield return new WaitForSeconds(2);
+        currentlyBoosting = false;
+        StartCoroutine(SpeedPowerUpOff());
+    }
+
+
+    IEnumerator SpeedPowerUpOff()
+    {
+        lerpTime = 2;
+        currentLerpTime = 0;
+        while (currentLerpTime < lerpTime && !camZoomOut && !currentlyBoosting)
+        {
+            currentLerpTime += Time.deltaTime;
+            if (currentLerpTime > lerpTime)
+            {
+                currentLerpTime = lerpTime;
+            }
+            float perc = Mathf.Clamp01(currentLerpTime / lerpTime);
+
+            cam.fieldOfView = Mathf.Lerp(cam.fieldOfView, 60, perc * .25f);
+            yield return null;
+        }
+        currentLerpTime = 0;
+
+    }
+
+
+
 }
+
+
