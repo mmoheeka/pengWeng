@@ -19,6 +19,7 @@ public class CurveController : MonoBehaviour
     [Range(0f, 50f)]
     [SerializeField]
     public float falloff = 0f;
+    public Transform player;
 
     private Vector2 bendAmount = Vector2.zero;
 
@@ -29,6 +30,7 @@ public class CurveController : MonoBehaviour
 
     void Start()
     {
+
         bendAmountId = Shader.PropertyToID("_BendAmount");
         bendOriginId = Shader.PropertyToID("_BendOrigin");
         bendFalloffId = Shader.PropertyToID("_BendFalloff");

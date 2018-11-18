@@ -27,6 +27,7 @@ public class FollowCam : MonoBehaviour
     {
         cameraOffset = transform.position - camTarget.position;
         cameraOffset.y -= 3;
+        cameraOffset.z -= 3;
 
         cam = GetComponent<Camera>();
 

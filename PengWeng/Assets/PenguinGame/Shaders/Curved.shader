@@ -7,6 +7,9 @@ Shader "Custom/Curved" {
     {
         _Color ("Main Color", Color) = (1,1,1,1)
         _MainTex ("Base (RGB)", 2D) = "white" {}
+        _Illumi ("Illumi Color", Color) = (1,1,1,1)
+        Intensity ("Intensity", Float) = 1
+        
     }
  
     SubShader
@@ -24,6 +27,8 @@ Shader "Custom/Curved" {
  
         sampler2D _MainTex;
         fixed4 _Color;
+        fixed4 _Illumi;
+        float Intensity;
  
         struct Input
         {
@@ -56,6 +61,7 @@ Shader "Custom/Curved" {
         void surf(Input IN, inout SurfaceOutput o)
         {
               fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
+              o.Emission = _Illumi * Intensity;
               o.Albedo = c.rgb;
               o.Alpha = c.a;
         }
