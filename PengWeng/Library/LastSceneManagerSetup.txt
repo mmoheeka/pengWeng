@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/PenguinGame/__Scenes/PWMain_1.unity
+- path: Assets/PenguinGame/__Scenes/PWMain_2.unity
   isLoaded: 1
   isActive: 1
