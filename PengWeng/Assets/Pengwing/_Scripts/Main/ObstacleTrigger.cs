@@ -6,6 +6,7 @@ public class ObstacleTrigger : MonoBehaviour
 {
 
     Rigidbody rb;
+    CharController m_charController;
 
     // Use this for initialization
     void Start()
@@ -23,13 +24,35 @@ public class ObstacleTrigger : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
+
+            m_charController = other.gameObject.GetComponentInParent<CharController>();
+            rb.useGravity = true;
+            m_charController.isGrounded = false;
+
             Debug.Log("Player hit");
-            Vector3 direction = other.contacts[0].point - transform.position;
-            direction = -direction.normalized;
-            rb.AddForce(direction * 200);
-            other.gameObject.GetComponentInChildren<Rigidbody>().AddExplosionForce(10, other.gameObject.transform.position, 10, 2, ForceMode.Impulse);
-            other.gameObject.GetComponent<CharController>().thrust = 0;
-            other.gameObject.GetComponent<CharController>().m_worldTileManager.maxSpeed = 0;
+            Vector3 direction = other.contacts[0].point - Vector3.right;
+
+            direction = direction.normalized;
+            var reverseDir = -direction.normalized;
+            rb.AddForce(direction * 30);
+            other.gameObject.GetComponentInChildren<Rigidbody>().AddForce(direction * -500);
+
+
+
+
+
+            //other.gameObject.GetComponentInChildren<Rigidbody>().AddExplosionForce(20, other.gameObject.transform.position, 15, 5, ForceMode.Impulse);
+
+
+
+
+            m_charController.thrust = 0;
+            m_charController.m_worldTileManager.maxSpeed = 0;
+            m_charController.speed = 0;
+            CharController.canRaycast = false;
+            CharController.playerParticles.rateOverTime = 0;
+
+
 
         }
     }

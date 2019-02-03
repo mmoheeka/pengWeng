@@ -23,16 +23,19 @@ public class CharController : MonoBehaviour
     public bool hitRamp;
     public bool isInTheAir;
 
+
     [System.Serializable]
     public enum CurrentLane { Left, Center, Right };
     public CurrentLane currentLane;
 
+    public WorldTileManager m_worldTileManager;
+
+    public static ParticleSystem.EmissionModule playerParticles;
+    public static bool canRaycast;
 
     private Vector3 startVector;
     private Quaternion startQuaternion;
     private Quaternion currentQuaternion;
-    private ParticleSystem.EmissionModule playerParticles;
-    public WorldTileManager m_worldTileManager;
     private PengwingManager m_pengWingManager;
 
 
@@ -40,13 +43,14 @@ public class CharController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+        canRaycast = true;
         character.transform.localPosition = transform.position;
 
         rb = character.GetComponent<Rigidbody>();
         startQuaternion = rb.rotation;
         playerParticles = this.GetComponentInChildren<ParticleSystem>().emission;
-        m_worldTileManager = GameObject.FindObjectOfType<WorldTileManager>();
-        m_pengWingManager = GameObject.FindObjectOfType<PengwingManager>();
+        m_worldTileManager = FindObjectOfType<WorldTileManager>();
+        m_pengWingManager = FindObjectOfType<PengwingManager>();
 
 
     }
@@ -97,36 +101,40 @@ public class CharController : MonoBehaviour
         }
 
 
-        RaycastHit[] groundHits;
-        groundHits = Physics.RaycastAll(character.transform.position, Vector3.down, 1);
-
-        foreach (var objectHit in groundHits)
+        if (canRaycast)
         {
-            if (objectHit.transform.tag == "Ground")
+            RaycastHit[] groundHits;
+            groundHits = Physics.RaycastAll(character.transform.position, Vector3.down, 1);
+
+            foreach (var objectHit in groundHits)
             {
-                isInTheAir = false;
-                isGrounded = true;
-                playerParticles.rateOverTime = 10f;
+                if (objectHit.transform.tag == "Ground")
+                {
+                    isInTheAir = false;
+                    isGrounded = true;
+                    playerParticles.rateOverTime = 10f;
+
+                }
+
+                if (objectHit.transform.tag == "Ramp")
+                {
+                    rb.AddForce(0, forceAmount, .15f, ForceMode.Impulse);
+                    hitRamp = true;
+                }
+                else
+                {
+                    hitRamp = false;
+                }
 
             }
 
-            if (objectHit.transform.tag == "Ramp")
+            if (groundHits.Length < 1)
             {
-                rb.AddForce(0, forceAmount, .15f, ForceMode.Impulse);
-                hitRamp = true;
+                isGrounded = false;
+                isInTheAir = true;
             }
-            else
-            {
-                hitRamp = false;
-            }
-
         }
 
-        if (groundHits.Length < 1)
-        {
-            isGrounded = false;
-            isInTheAir = true;
-        }
 
     }
 

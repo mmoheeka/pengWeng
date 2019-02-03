@@ -1,9 +1,8 @@
 ﻿<Properties StartupConfiguration="{6AEF4C3C-42FC-7F68-FE79-B0674FFE5C06}|">
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Pengwing/_Scripts/Main/CharController.cs">
     <Files>
-      <File FileName="Assets/Pengwing/_Scripts/IntroScene/DialogueInteraction.cs" Line="31" Column="31" />
-      <File FileName="Assets/Pengwing/_Scripts/IntroScene/DialogueManager.cs" Line="21" Column="1" />
-      <File FileName="Assets/Pengwing/_Scripts/Main/CharController.cs" Line="120" Column="52" />
+      <File FileName="Assets/Pengwing/_Scripts/Main/CharController.cs" Line="151" Column="9" />
+      <File FileName="Assets/Pengwing/_Scripts/Main/ObstacleTrigger.cs" Line="38" Column="89" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
