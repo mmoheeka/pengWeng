@@ -104,7 +104,8 @@ public class CharController : MonoBehaviour
         if (canRaycast)
         {
             RaycastHit[] groundHits;
-            groundHits = Physics.RaycastAll(character.transform.position, Vector3.down, 1);
+            groundHits = Physics.RaycastAll(character.transform.position, Vector3.down, 2);
+            Debug.DrawRay(character.transform.position, Vector3.down * 2, Color.green);
 
             foreach (var objectHit in groundHits)
             {
@@ -142,23 +143,9 @@ public class CharController : MonoBehaviour
 
     void FixedUpdate()
     {
-
-        float timer = 0;
-        timer += Time.deltaTime;
-
-        transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
-        currentQuaternion = rb.rotation;
-        rb.rotation = Quaternion.Lerp(rb.rotation, startQuaternion, timer * thrust);
-
-        float angleDelta = Quaternion.Angle(startQuaternion, currentQuaternion);
-        //Debug.Log(angleDelta);
-        if (angleDelta > 30)
+        if (!m_pengWingManager.playerDead)
         {
-            thrust = 5;
-        }
-        else if (angleDelta < -5)
-        {
-            thrust = 0;
+            CharacterTrajectory();
         }
     }
 
@@ -273,6 +260,30 @@ public class CharController : MonoBehaviour
                 currentVector = 0;
                 //character.transform.position = Vector3.Lerp(character.transform.position, currentLerpPos, speedTime);
                 break;
+        }
+    }
+
+
+
+    void CharacterTrajectory()
+    {
+
+        float timer = 0;
+        timer += Time.deltaTime;
+
+        transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
+        currentQuaternion = rb.rotation;
+        rb.rotation = Quaternion.Lerp(rb.rotation, startQuaternion, timer * thrust);
+
+        float angleDelta = Quaternion.Angle(startQuaternion, currentQuaternion);
+        //Debug.Log(angleDelta);
+        if (angleDelta > 30)
+        {
+            thrust = 5;
+        }
+        else if (angleDelta < -5)
+        {
+            thrust = 0;
         }
     }
 

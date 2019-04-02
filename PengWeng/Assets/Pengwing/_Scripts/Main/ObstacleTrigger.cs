@@ -7,6 +7,7 @@ public class ObstacleTrigger : MonoBehaviour
 
     Rigidbody rb;
     CharController m_charController;
+    PengwingManager m_pengwingManager;
 
     // Use this for initialization
     void Start()
@@ -24,7 +25,8 @@ public class ObstacleTrigger : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-
+            m_pengwingManager = GameObject.FindWithTag("GameManager").GetComponent<PengwingManager>();
+            m_pengwingManager.playerDead = true;
             m_charController = other.gameObject.GetComponentInParent<CharController>();
             rb.useGravity = true;
             m_charController.isGrounded = false;
@@ -41,7 +43,7 @@ public class ObstacleTrigger : MonoBehaviour
 
 
 
-            //other.gameObject.GetComponentInChildren<Rigidbody>().AddExplosionForce(20, other.gameObject.transform.position, 15, 5, ForceMode.Impulse);
+            other.gameObject.GetComponentInChildren<Rigidbody>().AddExplosionForce(5, transform.forward, 5, 5, ForceMode.Impulse);
 
 
 

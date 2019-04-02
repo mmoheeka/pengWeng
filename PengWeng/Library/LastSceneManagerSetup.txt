@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Pengwing/__Scenes/PWMain_2.unity
+- path: Assets/Pengwing/__Scenes/PWMain_3.unity
   isLoaded: 1
   isActive: 1

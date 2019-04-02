@@ -241,6 +241,7 @@
     <None Include="Assets\AmplifyShaderEditor\Examples\Official\Projectors\ProjectorLight.shader" />
     <None Include="Assets\AmplifyShaderEditor\Examples\Official\SimpleTexture\SimpleTexture.shader" />
     <None Include="Assets\AmplifyShaderEditor\Examples\Official\StencilExample\Portals\Portal03\StencilMask03.shader" />
+    <None Include="Assets\Pengwing\Shaders\PenguinHero.shader" />
     <None Include="Assets\Polyquest Worlds Full Pack Vol.1\scenes\Rocks_Scenes\Rocks_Textured_lightmapped_scenes\Troubleshooting_textured_scenes_TX.txt" />
     <None Include="Assets\AmplifyShaderEditor\Examples\Official\XRay\XRay.shader" />
     <None Include="Assets\Polyquest Worlds Full Pack Vol.1\scenes\Stones_Scenes\Stones_Textured_lightmapped_scenes\Troubleshooting_textured_scenes_TX.txt" />
