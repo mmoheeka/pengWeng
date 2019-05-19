@@ -4,20 +4,15 @@ using UnityEngine;
 
 public class ObstacleTrigger : MonoBehaviour
 {
-
-    Rigidbody rb;
     CharController m_charController;
     PengwingManager m_pengwingManager;
+    public Transform shardParent;
+    public Transform staticObj;
 
-    // Use this for initialization
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
+        // rb = GetComponent<Rigidbody>();
 
     }
 
@@ -26,36 +21,30 @@ public class ObstacleTrigger : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             m_pengwingManager = GameObject.FindWithTag("GameManager").GetComponent<PengwingManager>();
-            m_pengwingManager.playerDead = true;
             m_charController = other.gameObject.GetComponentInParent<CharController>();
-            rb.useGravity = true;
-            m_charController.isGrounded = false;
 
-            Debug.Log("Player hit");
             Vector3 direction = other.contacts[0].point - Vector3.right;
-
             direction = direction.normalized;
-            var reverseDir = -direction.normalized;
-            rb.AddForce(direction * 30);
-            other.gameObject.GetComponentInChildren<Rigidbody>().AddForce(direction * -500);
 
+            shardParent.gameObject.SetActive(true);
+            staticObj.gameObject.SetActive(false);
 
+            foreach (Transform shardObjects in shardParent)
+            {
+                shardObjects.gameObject.AddComponent<Rigidbody>();
+                shardObjects.GetComponent<Rigidbody>().mass = 2;
+                shardObjects.GetComponent<Rigidbody>().drag = .5f;
+                shardObjects.GetComponent<Rigidbody>().angularDrag = .1f;
+                shardObjects.GetComponent<Rigidbody>().AddForce(direction * 10, ForceMode.Impulse);
+            }
 
-
-
-            other.gameObject.GetComponentInChildren<Rigidbody>().AddExplosionForce(5, transform.forward, 5, 5, ForceMode.Impulse);
-
-
-
-
+            m_charController.isGrounded = false;
+            m_charController.PlayerHasDied();
             m_charController.thrust = 0;
             m_charController.m_worldTileManager.maxSpeed = 0;
             m_charController.speed = 0;
             CharController.canRaycast = false;
             CharController.playerParticles.rateOverTime = 0;
-
-
-
         }
     }
 }

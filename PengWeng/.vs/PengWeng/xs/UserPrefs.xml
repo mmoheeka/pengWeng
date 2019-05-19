@@ -1,11 +1,7 @@
 ﻿<Properties StartupConfiguration="{6AEF4C3C-42FC-7F68-FE79-B0674FFE5C06}|">
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Pengwing/Shaders/PenguinHero.shader">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Pengwing/Shaders/PenguinHeroNew.shader">
     <Files>
-      <File FileName="Assets/Pengwing/_Scripts/Main/CharController.cs" Line="151" Column="1" />
-      <File FileName="Assets/Pengwing/_Scripts/Main/PengwingManager.cs" Line="14" Column="17" />
-      <File FileName="Assets/Pengwing/_Scripts/Main/ObstacleTrigger.cs" Line="29" Column="31" />
-      <File FileName="Assets/Pengwing/Shaders/ToonShaderTest_0.shader" Line="1" Column="1" />
-      <File FileName="Assets/Pengwing/Shaders/PenguinHero.shader" Line="19" Column="1" />
+      <File FileName="Assets/Pengwing/Shaders/PenguinHeroNew.shader" Line="110" Column="59" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />

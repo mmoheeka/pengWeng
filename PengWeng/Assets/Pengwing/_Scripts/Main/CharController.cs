@@ -5,6 +5,15 @@ using UnityEngine;
 public class CharController : MonoBehaviour
 {
 
+    public delegate void PlayerDead();
+    public event PlayerDead playerHasDied;
+
+    public delegate void HittingRamp();
+    public event HittingRamp hittingRamp;
+
+    public delegate void CollectedCoin();
+    public event CollectedCoin collectedCoin;
+
     public GameObject character;
     public GameObject mainCam;
     public Vector3 currentLerpPos;
@@ -143,10 +152,10 @@ public class CharController : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (!m_pengWingManager.playerDead)
-        {
-            CharacterTrajectory();
-        }
+        // if (!m_pengWingManager.playerDead)
+        // {
+        // }
+        CharacterTrajectory();
     }
 
 
@@ -284,6 +293,14 @@ public class CharController : MonoBehaviour
         else if (angleDelta < -5)
         {
             thrust = 0;
+        }
+    }
+
+    public void PlayerHasDied()
+    {
+        if (playerHasDied != null)
+        {
+            playerHasDied();
         }
     }
 

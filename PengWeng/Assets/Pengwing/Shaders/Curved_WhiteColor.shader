@@ -75,9 +75,9 @@ Shader "Custom/Curved_WhiteColor" {
  
               float4 world = mul(unity_ObjectToWorld, v);
  
-              float dist = length(world.xz-_BendOrigin.xz);
+              float dist = length(world.xz - _BendOrigin.xz);
  
-              dist = max(0, dist-_BendFalloff);
+              dist = max(0, dist - _BendFalloff);
  
               // Distance squared
               dist = dist*dist;

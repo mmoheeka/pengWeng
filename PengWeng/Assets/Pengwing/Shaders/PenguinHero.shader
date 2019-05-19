@@ -5,63 +5,60 @@
 		_Color ("Color", Color) = (1,1,1,1)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
         _Ramp ("Toon Ramp (RGB)", 2D) = "gray" {}
-        _Amount ("Extrusion Amount", Range(-1,1)) = 0.5
-
+        
+        _Value ("Value", Range(0, 1)) = 0.5
+       
 	}
+    
+
+    
 	SubShader 
     {
-		Tags { "RenderType"="Opaque" }
-		LOD 200
 
-		CGPROGRAM
         
-        #pragma surface surf ToonRamp vertex:vert
-        //#pragma target 3.0
+		Tags { "RenderType"="Opaque"}
+
+    
+        
+		LOD 200
+        
+        CGPROGRAM
+        #pragma surface surf ToonRamp 
+        
 
 		sampler2D _Ramp;
+        sampler2D _MainTex;
+        fixed4 _Color;
+        float _Value;
         
-
         
-        #pragma lighting ToonRamp exclude_path:prepass
+        struct Input 
+        {
+           float4 vertex : POSITION;
+           float3 normal : NORMAL;
+           float2 uv_MainTex : TEXCOORD0;
+        };
+        
+             
         
         half4 LightingToonRamp(SurfaceOutput s, half3 lightDir, half atten)
         {
            
-           #ifndef USING_DIRECTIONAL_LIGHT
+           //#ifndef USING_DIRECTIONAL_LIGHT
            lightDir = normalize(lightDir);
-           #endif
+           //#endif
            
            half NdotL = dot (s.Normal, lightDir);
-           half diff = NdotL * 0.5 + 0.5;
+           half diff = NdotL * _Value + _Value;
            half3 ramp = tex2D (_Ramp, float(diff)).rgb;
            half4 c;
            c.rgb = s.Albedo * _LightColor0.rgb * ramp * atten;
            c.a = s.Alpha;
            return c;
         }
-
-		struct Input 
-        {
-			float2 uv_MainTex : TEXCOORD0;
-		};
         
+       
         
-        float _Amount;
-        void vert (inout appdata_full v) 
-        {
-        
-          v.vertex.xyz += v.normal * _Amount;
-          
-        }
-        
-        
-        
-        sampler2D _MainTex;
-        //half _Glossiness;
-		//half _Metallic;
-		fixed4 _Color;
-        
-
 		void surf (Input IN, inout SurfaceOutput o) 
         {
 			// Albedo comes from a texture tinted by color

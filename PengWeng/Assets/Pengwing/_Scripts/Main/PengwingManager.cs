@@ -6,19 +6,19 @@ using UnityEngine.UI;
 public class PengwingManager : MonoBehaviour
 {
 
+    public CharController _charController;
+    public Rigidbody ragDollRB;
     public float seconds;
     public float minutes;
     public int progressTime;
     public Slider progressBar;
-
-    public bool playerDead;
-
-
     private float timer;
+
 
     void Start()
     {
-
+        _charController = FindObjectOfType<CharController>();
+        _charController.playerHasDied += UpdatePlayerDeath;
     }
 
     void Update()
@@ -29,10 +29,36 @@ public class PengwingManager : MonoBehaviour
 
         if (timer > 0)
         {
-
-
             progressBar.value = minutes / progressTime;
         }
+    }
+
+    void OnDestroy()
+    {
+        _charController.playerHasDied -= UpdatePlayerDeath;
+    }
+
+    void UpdatePlayerDeath()
+    {
+        FollowCam _followCam = GameObject.FindObjectOfType<FollowCam>();
+        _followCam.camTarget = _charController.character.transform.GetChild(0).gameObject.transform;
+        _followCam.smoothSpeed = 0;
+
+        _charController.character.transform.GetChild(1).gameObject.SetActive(true);
+        GameObject.Destroy(_charController.character.transform.GetChild(2).gameObject);
+        ragDollRB = _charController.character.transform.GetChild(1).transform.GetChild(1).GetComponentInChildren<Rigidbody>();
+        // ragDollRB.AddForce(Vector3.up * 0, ForceMode.Force);
 
     }
+
+    void SavePlayerProgress()
+    {
+
+    }
+
+    void LoadPlayerProgress()
+    {
+
+    }
+
 }

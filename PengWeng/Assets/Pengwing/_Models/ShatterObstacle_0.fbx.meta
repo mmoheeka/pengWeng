@@ -1,0 +1,200 @@
+fileFormatVersion: 2
+guid: 0f44e74ec5837471aa3c0dba2d8cbf02
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: BreakObstacle_0
+    100002: Cliff_M
+    100004: shard10
+    100006: shard11
+    100008: shard12
+    100010: shard13
+    100012: shard14
+    100014: shard15
+    100016: shard16
+    100018: shard17
+    100020: shard18
+    100022: shard19
+    100024: shard20
+    100026: shard21
+    100028: shard22
+    100030: shard23
+    100032: shard24
+    100034: shard25
+    100036: shard26
+    100038: shard7
+    100040: shard8
+    100042: shard9
+    100044: //RootNode
+    400000: BreakObstacle_0
+    400002: Cliff_M
+    400004: shard10
+    400006: shard11
+    400008: shard12
+    400010: shard13
+    400012: shard14
+    400014: shard15
+    400016: shard16
+    400018: shard17
+    400020: shard18
+    400022: shard19
+    400024: shard20
+    400026: shard21
+    400028: shard22
+    400030: shard23
+    400032: shard24
+    400034: shard25
+    400036: shard26
+    400038: shard7
+    400040: shard8
+    400042: shard9
+    400044: //RootNode
+    2100000: m_rock_gray1
+    2100002: shatterInteriorS2
+    2300000: Cliff_M
+    2300002: shard10
+    2300004: shard11
+    2300006: shard12
+    2300008: shard13
+    2300010: shard14
+    2300012: shard15
+    2300014: shard16
+    2300016: shard17
+    2300018: shard18
+    2300020: shard19
+    2300022: shard20
+    2300024: shard21
+    2300026: shard22
+    2300028: shard23
+    2300030: shard24
+    2300032: shard25
+    2300034: shard26
+    2300036: shard7
+    2300038: shard8
+    2300040: shard9
+    3300000: Cliff_M
+    3300002: shard10
+    3300004: shard11
+    3300006: shard12
+    3300008: shard13
+    3300010: shard14
+    3300012: shard15
+    3300014: shard16
+    3300016: shard17
+    3300018: shard18
+    3300020: shard19
+    3300022: shard20
+    3300024: shard21
+    3300026: shard22
+    3300028: shard23
+    3300030: shard24
+    3300032: shard25
+    3300034: shard26
+    3300036: shard7
+    3300038: shard8
+    3300040: shard9
+    4300000: Cliff_M
+    4300002: shard7
+    4300004: shard8
+    4300006: shard9
+    4300008: shard10
+    4300010: shard11
+    4300012: shard12
+    4300014: shard13
+    4300016: shard14
+    4300018: shard15
+    4300020: shard16
+    4300022: shard17
+    4300024: shard18
+    4300026: shard19
+    4300028: shard20
+    4300030: shard21
+    4300032: shard22
+    4300034: shard23
+    4300036: shard24
+    4300038: shard25
+    4300040: shard26
+    9500000: //RootNode
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 0.01
+    hasPreviousCalculatedGlobalScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
