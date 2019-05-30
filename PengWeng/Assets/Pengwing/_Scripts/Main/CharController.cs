@@ -128,7 +128,7 @@ public class CharController : MonoBehaviour
 
                 if (objectHit.transform.tag == "Ramp")
                 {
-                    rb.AddForce(0, forceAmount, .15f, ForceMode.Impulse);
+                    rb.AddForce(0, forceAmount, .0005f, ForceMode.Impulse);
                     hitRamp = true;
                 }
                 else

@@ -18,7 +18,10 @@ public class PengwingManager : MonoBehaviour
     void Start()
     {
         _charController = FindObjectOfType<CharController>();
+        // Game events updated here //
         _charController.playerHasDied += UpdatePlayerDeath;
+        _charController.hittingRamp += RampHit;
+        _charController.collectedCoin += CollectedCoin;
     }
 
     void Update()
@@ -47,7 +50,18 @@ public class PengwingManager : MonoBehaviour
         _charController.character.transform.GetChild(1).gameObject.SetActive(true);
         GameObject.Destroy(_charController.character.transform.GetChild(2).gameObject);
         ragDollRB = _charController.character.transform.GetChild(1).transform.GetChild(1).GetComponentInChildren<Rigidbody>();
-        // ragDollRB.AddForce(Vector3.up * 0, ForceMode.Force);
+        ragDollRB.AddForce(Vector3.up * 5, ForceMode.Impulse);
+    }
+
+    void RampHit()
+    {
+        // Move ramp logic here //
+
+    }
+
+    void CollectedCoin()
+    {
+        // Add all coin collection information here since UI is in this script //
 
     }
 

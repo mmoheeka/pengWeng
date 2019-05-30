@@ -6,8 +6,8 @@ public class ObstacleTrigger : MonoBehaviour
 {
     CharController m_charController;
     PengwingManager m_pengwingManager;
-    public Transform shardParent;
     public Transform staticObj;
+    public Transform shardParent;
 
     void Start()
     {
@@ -23,20 +23,24 @@ public class ObstacleTrigger : MonoBehaviour
             m_pengwingManager = GameObject.FindWithTag("GameManager").GetComponent<PengwingManager>();
             m_charController = other.gameObject.GetComponentInParent<CharController>();
 
-            Vector3 direction = other.contacts[0].point - Vector3.right;
+            Vector3 direction = other.contacts[0].point - Vector3.forward;
             direction = direction.normalized;
 
             shardParent.gameObject.SetActive(true);
             staticObj.gameObject.SetActive(false);
+            Physics.gravity = new Vector3(0, -20, 0);
 
             foreach (Transform shardObjects in shardParent)
             {
                 shardObjects.gameObject.AddComponent<Rigidbody>();
-                shardObjects.GetComponent<Rigidbody>().mass = 2;
+                shardObjects.GetComponent<Rigidbody>().mass = 1;
                 shardObjects.GetComponent<Rigidbody>().drag = .5f;
-                shardObjects.GetComponent<Rigidbody>().angularDrag = .1f;
-                shardObjects.GetComponent<Rigidbody>().AddForce(direction * 10, ForceMode.Impulse);
+                shardObjects.GetComponent<Rigidbody>().angularDrag = .5f;
+                shardObjects.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             }
+
+            // Force sets a lot of things controlling the character
+            //================================================================================================================
 
             m_charController.isGrounded = false;
             m_charController.PlayerHasDied();

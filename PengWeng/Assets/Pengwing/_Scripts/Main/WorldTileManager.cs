@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class WorldTileManager : MonoBehaviour
 {
+    public bool ramps;
 
     /** Max Number of Tiles visible at one time */
-    static int MAX_TILES = 6;
+    static int MAX_TILES = 3;
 
     /** Max speed of tiles */
     [Range(0f, 150f)]
     public float maxSpeed = 10f;
 
+    /** Current Speed of Tiles */
+    public float speed;
+
     /** Collection of Types of Tiles */
-    public GameObject[] tileTypes;
+    [Header("Begining Tiles")]
+    public GameObject[] beginingTiles;
+
+    [Header("Intermediate Tiles")]
+    public GameObject[] intermediateTiles;
+
+    [Header("Difficult Tiles")]
+    public GameObject[] DifficultTiles;
 
     /** Size of Tiles in z dimension best size is 7.62f */
-    public float tileSize = 7.62f;
-
-    /** Current Speed of Tiles */
-    private float speed;
+    private float tileSize = 136f;
 
     /** Collection of active Tiles */
     private List<GameObject> tiles;
@@ -30,18 +38,20 @@ public class WorldTileManager : MonoBehaviour
     /** Initialize */
     public void Init()
     {
-        this.speed = 0f;
-        this.tiles = new List<GameObject>();
-        this.tilePool = new TilePool(this.tileTypes, MAX_TILES, this.transform);
+        speed = 0f;
+        tiles = new List<GameObject>();
+        tilePool = new TilePool(beginingTiles, 2, transform);
         InitTiles();
     }
 
     /** Increase speed by given amount */
     public void IncreaseSpeed(float amt)
     {
-        this.speed += amt;
-        if (this.speed > this.maxSpeed)
-            this.speed = maxSpeed;
+        speed += amt;
+        if (speed > maxSpeed)
+        {
+            speed = maxSpeed;
+        }
     }
 
     /** Update Tiles */
@@ -50,15 +60,18 @@ public class WorldTileManager : MonoBehaviour
         for (int i = tiles.Count - 1; i >= 0; i--)
         {
             GameObject tile = tiles[i];
-            tile.transform.Translate(0f, 0f, -this.speed * Time.deltaTime);
+            tile.transform.Translate(0f, 0f, -speed * Time.deltaTime);
 
             // If a tile moves behind the camera release it and add a new one
-            if (tile.transform.position.z < Camera.main.transform.position.z)
+            if (tile.transform.position.z + 200 < Camera.main.transform.position.z)
             {
-                this.tiles.RemoveAt(i);
-                this.tilePool.ReleaseTile(tile);
-                int type = rnd.Next(0, this.tileTypes.Length);
+                tiles.RemoveAt(i);
+                tilePool.ReleaseTile(tile);
+                int type = rnd.Next(0, beginingTiles.Length);
+
                 AddTile(type);
+
+                Debug.Log("Update Tiles is being called");
             }
         }
     }
@@ -66,22 +79,32 @@ public class WorldTileManager : MonoBehaviour
     /** Add a new Tile */
     private void AddTile(int type)
     {
-        GameObject tile = this.tilePool.GetTile(type);
+        GameObject tile = tilePool.GetTile(type);
 
         // position tile's z at 0 or behind the last item added to tiles collection
-        float zPos = this.tiles.Count == 0 ? 0f : this.tiles[this.tiles.Count - 1].transform.position.z + this.tileSize;
+        float zPos = tiles.Count == 0 ? 0f : tiles[tiles.Count - 1].transform.position.z + tileSize;
         tile.transform.Translate(0f, 0f, zPos);
-        this.tiles.Add(tile);
+        tiles.Add(tile);
+
+        Debug.Log("Add Tile is being called");
     }
 
     /** Initialize Tiles */
     private void InitTiles()
     {
+        AddTile(0);
         for (int i = 0; i < MAX_TILES; i++)
         {
-            AddTile(0);
+            AddTile(Random.Range(0, beginingTiles.Length));
         }
     }
+
+    // ================================================================================================================
+
+    // This class is used to create the tile pool and get and recieve
+
+    // ================================================================================================================
+
 
     /** Object Pool for World Tiles */
     class TilePool
@@ -97,15 +120,15 @@ public class WorldTileManager : MonoBehaviour
         {
             this.transform = transform;
             int numTypes = types.Length;
-            this.pool = new List<GameObject>[numTypes];
+            pool = new List<GameObject>[numTypes];
             for (int i = 0; i < numTypes; i++)
             {
-                this.pool[i] = new List<GameObject>(size);
+                pool[i] = new List<GameObject>(size);
                 for (int j = 0; j < size; j++)
                 {
                     GameObject tile = (GameObject)Instantiate(types[i]);
                     tile.SetActive(false);
-                    this.pool[i].Add(tile);
+                    pool[i].Add(tile);
                 }
             }
         }
@@ -113,7 +136,8 @@ public class WorldTileManager : MonoBehaviour
         /** Get a Tile */
         public GameObject GetTile(int type)
         {
-            for (int i = 0; i < this.pool[type].Count; i++)
+            Debug.Log("Get Tile is being called");
+            for (int i = 0; i < pool[type].Count; i++)
             {
                 GameObject tile = this.pool[type][i];
                 // Ignore active tiles until we find the 1st inactive in appropriate list
@@ -136,6 +160,8 @@ public class WorldTileManager : MonoBehaviour
         /** Release a Tile */
         public void ReleaseTile(GameObject tile)
         {
+            Debug.Log("Release Tile is being called");
+
             // Inactivate the released tile
             tile.SetActive(false);
         }
