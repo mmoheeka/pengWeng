@@ -3532,11 +3532,11 @@ GameObject:
   - component: {fileID: 4512163222325744}
   m_Layer: 0
   m_Name: WorldTile_Start
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1693000565539300
 GameObject:
   m_ObjectHideFlags: 1
@@ -6992,7 +6992,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1690114454256452}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 30.962784, z: 118.06227}
+  m_LocalPosition: {x: 0, y: 30.962784, z: -2.0776282e+38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4189502970667704}

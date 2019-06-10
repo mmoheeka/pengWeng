@@ -42,13 +42,6 @@ public class FollowCam : MonoBehaviour
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         transform.position = smoothedPosition;
 
-
-        if (_characterController.hitRamp)
-        {
-            StartCoroutine(SpeedPowerUpOn());
-        }
-
-
     }
 
     IEnumerator SpeedPowerUpOn()

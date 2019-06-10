@@ -1078,7 +1078,6 @@ MonoBehaviour:
   isJumping: 0
   isGrounding: 0
   isGrounded: 0
-  hitRamp: 0
   isInTheAir: 0
   currentLane: 0
   m_worldTileManager: {fileID: 0}
@@ -1107,7 +1106,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db65228224d0f419bb8c3b055d869167, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ramps: 0
   TileHolder: {fileID: 760794992}
 --- !u!54 &608043304 stripped
 Rigidbody:
@@ -1259,16 +1257,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20dcad88bb847484183c5c51a9eef8aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ramps: 0
+  pengwingManager: {fileID: 1074272935}
+  rampTest: 0
   maxSpeed: 150
   speed: 0
-  beginingTiles:
+  tileTypes:
   - {fileID: 1690114454256452, guid: 6b50b8a42ac5e492387c684e18c5a678, type: 2}
   - {fileID: 1831468038481456, guid: dfae2ead22c474b3a995e1b73cb1f6a0, type: 2}
   - {fileID: 1860931081230410, guid: c715a0084044446ef8e8b0af78e58bdd, type: 2}
   - {fileID: 1650204181970970, guid: a5e9abcc53a4a400788729be84c800bb, type: 2}
-  intermediateTiles: []
-  DifficultTiles: []
+  - {fileID: 1133119953204414, guid: 14744f7414fb04a478367f91b0c340ed, type: 2}
+  - {fileID: 1063687312019496, guid: 26dcf2c55a4074957aa666e3a1c7e827, type: 2}
+  currentRamp: {fileID: 0}
+  rampTiles:
+  - {fileID: 1323498931466358, guid: 350fb3206410a42c29a7f48d725a91d9, type: 2}
+  waitingRampTiles:
+  - {fileID: 1323498931466358, guid: 350fb3206410a42c29a7f48d725a91d9, type: 2}
+  - {fileID: 1306945441160202, guid: 4e07c4f492beb422aa84748ac55626fe, type: 2}
+  - {fileID: 1818481813510302, guid: 38a5345285e9248a2997d4da5005c7f2, type: 2}
+  tiles: []
 --- !u!1 &945767027
 GameObject:
   m_ObjectHideFlags: 0
@@ -1355,7 +1362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &973178915
 Transform:
   m_ObjectHideFlags: 0
@@ -1457,11 +1464,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _charController: {fileID: 0}
+  _followCam: {fileID: 308946610}
   ragDollRB: {fileID: 0}
   seconds: 0
   minutes: 0
   progressTime: 5
   progressBar: {fileID: 2070865759}
+  rampTimer: 0
 --- !u!4 &1074272936
 Transform:
   m_ObjectHideFlags: 0

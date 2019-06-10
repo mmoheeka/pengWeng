@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class WorldTileManager : MonoBehaviour
 {
-    public bool ramps;
+    public PengwingManager pengwingManager;
+
+    public bool rampTest;
 
     /** Max Number of Tiles visible at one time */
-    static int MAX_TILES = 3;
+    static int MAX_TILES = 4;
 
     /** Max speed of tiles */
     [Range(0f, 150f)]
@@ -17,32 +19,94 @@ public class WorldTileManager : MonoBehaviour
     public float speed;
 
     /** Collection of Types of Tiles */
-    [Header("Begining Tiles")]
-    public GameObject[] beginingTiles;
+    [Header("Pooled Tiles")]
+    // public List<GameObject> tileTypes = new List<GameObject>();
+    public GameObject[] tileTypes;
 
-    [Header("Intermediate Tiles")]
-    public GameObject[] intermediateTiles;
+    public GameObject currentRamp;
 
-    [Header("Difficult Tiles")]
-    public GameObject[] DifficultTiles;
+    public GameObject[] rampTiles;
+
+    public GameObject[] waitingRampTiles;
+
 
     /** Size of Tiles in z dimension best size is 7.62f */
     private float tileSize = 136f;
 
     /** Collection of active Tiles */
-    private List<GameObject> tiles;
+    public List<GameObject> tiles;
 
     /** Pool of Tiles */
     private TilePool tilePool;
+
+    private TilePool newTilePool;
+
+
+    void Start()
+    {
+        pengwingManager.addRamp += StartRamp;
+    }
 
     /** Initialize */
     public void Init()
     {
         speed = 0f;
         tiles = new List<GameObject>();
-        tilePool = new TilePool(beginingTiles, 2, transform);
+        tilePool = new TilePool(tileTypes, MAX_TILES, transform);
+
         InitTiles();
     }
+
+    public void Update()
+    {
+
+    }
+
+    public void StartRamp()
+
+    {
+        newTilePool = new TilePool(rampTiles, 1, transform);
+        AddRampTile(0);
+        foreach (var k in tiles)
+        {
+            if (k.gameObject.tag == "Ramp")
+            {
+                currentRamp = k;
+            }
+        }
+    }
+
+
+    public void RemoveRampTile()
+    {
+        if (currentRamp != null)
+        {
+            if (!currentRamp.activeInHierarchy)
+            {
+                Destroy(currentRamp);
+                int index = tiles.Count - 1;
+                GameObject lastObject = tiles[index].gameObject;
+                tilePool.ReleaseTile(lastObject);
+                tiles.RemoveAt(tiles.Count - 1);
+                int newObject = Random.Range(0, waitingRampTiles.Length);
+                rampTiles[0] = waitingRampTiles[newObject];
+            }
+        }
+
+
+    }
+
+
+    public void AddRampTile(int type)
+    {
+        GameObject tile = newTilePool.GetTile(type);
+
+        // position tile's z at 0 or behind the last item added to tiles collection
+        float zPos = this.tiles.Count == 0 ? 0f : this.tiles[this.tiles.Count - 1].transform.position.z + this.tileSize;
+        tile.transform.Translate(0f, 0f, zPos);
+        this.tiles.Add(tile);
+    }
+
 
     /** Increase speed by given amount */
     public void IncreaseSpeed(float amt)
@@ -60,42 +124,42 @@ public class WorldTileManager : MonoBehaviour
         for (int i = tiles.Count - 1; i >= 0; i--)
         {
             GameObject tile = tiles[i];
-            tile.transform.Translate(0f, 0f, -speed * Time.deltaTime);
+            tile.transform.Translate(0f, 0f, -this.speed * Time.deltaTime);
 
             // If a tile moves behind the camera release it and add a new one
             if (tile.transform.position.z + 200 < Camera.main.transform.position.z)
             {
-                tiles.RemoveAt(i);
-                tilePool.ReleaseTile(tile);
-                int type = rnd.Next(0, beginingTiles.Length);
-
+                this.tiles.RemoveAt(i);
+                this.tilePool.ReleaseTile(tile);
+                int type = rnd.Next(0, this.tileTypes.Length);
                 AddTile(type);
-
-                Debug.Log("Update Tiles is being called");
+                RemoveRampTile();
             }
         }
+
     }
 
+
     /** Add a new Tile */
-    private void AddTile(int type)
+    public void AddTile(int type)
     {
         GameObject tile = tilePool.GetTile(type);
 
         // position tile's z at 0 or behind the last item added to tiles collection
-        float zPos = tiles.Count == 0 ? 0f : tiles[tiles.Count - 1].transform.position.z + tileSize;
+        float zPos = this.tiles.Count == 0 ? 0f : this.tiles[this.tiles.Count - 1].transform.position.z + this.tileSize;
         tile.transform.Translate(0f, 0f, zPos);
-        tiles.Add(tile);
+        this.tiles.Add(tile);
 
-        Debug.Log("Add Tile is being called");
     }
+
+
 
     /** Initialize Tiles */
     private void InitTiles()
     {
-        AddTile(0);
         for (int i = 0; i < MAX_TILES; i++)
         {
-            AddTile(Random.Range(0, beginingTiles.Length));
+            AddTile(0);
         }
     }
 
@@ -111,6 +175,8 @@ public class WorldTileManager : MonoBehaviour
     {
         /** Pool of Tiles */
         private List<GameObject>[] pool;
+
+        private List<GameObject>[] types;
 
         /** Model Transform */
         private Transform transform;
@@ -133,10 +199,11 @@ public class WorldTileManager : MonoBehaviour
             }
         }
 
+
+
         /** Get a Tile */
         public GameObject GetTile(int type)
         {
-            Debug.Log("Get Tile is being called");
             for (int i = 0; i < pool[type].Count; i++)
             {
                 GameObject tile = this.pool[type][i];
@@ -160,8 +227,6 @@ public class WorldTileManager : MonoBehaviour
         /** Release a Tile */
         public void ReleaseTile(GameObject tile)
         {
-            Debug.Log("Release Tile is being called");
-
             // Inactivate the released tile
             tile.SetActive(false);
         }

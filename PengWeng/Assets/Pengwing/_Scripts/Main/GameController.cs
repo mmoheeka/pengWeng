@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour
 {
-    public bool ramps;
-
     /** Speed Increase Value */
     static float SPEED_INCREASE = .05f;
 

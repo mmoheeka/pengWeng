@@ -29,7 +29,6 @@ public class CharController : MonoBehaviour
     public bool isJumping;
     public bool isGrounding;
     public bool isGrounded;
-    public bool hitRamp;
     public bool isInTheAir;
 
 
@@ -115,7 +114,7 @@ public class CharController : MonoBehaviour
             RaycastHit[] groundHits;
             groundHits = Physics.RaycastAll(character.transform.position, Vector3.down, 2);
             Debug.DrawRay(character.transform.position, Vector3.down * 2, Color.green);
-
+            
             foreach (var objectHit in groundHits)
             {
                 if (objectHit.transform.tag == "Ground")
@@ -128,12 +127,8 @@ public class CharController : MonoBehaviour
 
                 if (objectHit.transform.tag == "Ramp")
                 {
+                    PlayerHitRamp();
                     rb.AddForce(0, forceAmount, .0005f, ForceMode.Impulse);
-                    hitRamp = true;
-                }
-                else
-                {
-                    hitRamp = false;
                 }
 
             }
@@ -301,6 +296,14 @@ public class CharController : MonoBehaviour
         if (playerHasDied != null)
         {
             playerHasDied();
+        }
+    }
+
+    public void PlayerHitRamp()
+    {
+        if (hittingRamp != null)
+        {
+            hittingRamp();
         }
     }
 

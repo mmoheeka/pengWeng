@@ -7,12 +7,17 @@ public class PengwingManager : MonoBehaviour
 {
 
     public CharController _charController;
+    public FollowCam _followCam;
     public Rigidbody ragDollRB;
     public float seconds;
     public float minutes;
     public int progressTime;
     public Slider progressBar;
     private float timer;
+    public float rampTimer;
+
+    public delegate void AddRamp();
+    public event AddRamp addRamp;
 
 
     void Start()
@@ -29,11 +34,23 @@ public class PengwingManager : MonoBehaviour
         timer += Time.deltaTime;
         seconds = timer % 60;
         minutes = timer / 60;
+        rampTimer += Time.deltaTime;
 
         if (timer > 0)
         {
             progressBar.value = minutes / progressTime;
         }
+
+        if (rampTimer >= 30)
+        {
+            if (addRamp != null)
+            {
+                addRamp();
+            }
+            rampTimer = 0;
+        }
+
+
     }
 
     void OnDestroy()
@@ -55,7 +72,8 @@ public class PengwingManager : MonoBehaviour
 
     void RampHit()
     {
-        // Move ramp logic here //
+        _followCam.StartCoroutine("SpeedPowerUpOn");
+        // CharController.playerParticles.enabled = false;
 
     }
 
