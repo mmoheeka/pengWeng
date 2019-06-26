@@ -16,6 +16,8 @@ public class PengwingManager : MonoBehaviour
     private float timer;
     public float rampTimer;
 
+    public int crystalCount;
+
     public delegate void AddRamp();
     public event AddRamp addRamp;
 
@@ -26,7 +28,7 @@ public class PengwingManager : MonoBehaviour
         // Game events updated here //
         _charController.playerHasDied += UpdatePlayerDeath;
         _charController.hittingRamp += RampHit;
-        _charController.collectedCoin += CollectedCoin;
+        _charController.collectedCrystal += CollectedCrystal;
     }
 
     void Update()
@@ -50,6 +52,11 @@ public class PengwingManager : MonoBehaviour
             rampTimer = 0;
         }
 
+
+    }
+
+    void AddCrystalValue()
+    {
 
     }
 
@@ -77,7 +84,7 @@ public class PengwingManager : MonoBehaviour
 
     }
 
-    void CollectedCoin()
+    void CollectedCrystal()
     {
         // Add all coin collection information here since UI is in this script //
 

@@ -11,8 +11,8 @@ public class CharController : MonoBehaviour
     public delegate void HittingRamp();
     public event HittingRamp hittingRamp;
 
-    public delegate void CollectedCoin();
-    public event CollectedCoin collectedCoin;
+    public delegate void CollectedCrystal();
+    public event CollectedCrystal collectedCrystal;
 
     public GameObject character;
     public GameObject mainCam;
@@ -114,7 +114,7 @@ public class CharController : MonoBehaviour
             RaycastHit[] groundHits;
             groundHits = Physics.RaycastAll(character.transform.position, Vector3.down, 2);
             Debug.DrawRay(character.transform.position, Vector3.down * 2, Color.green);
-            
+
             foreach (var objectHit in groundHits)
             {
                 if (objectHit.transform.tag == "Ground")
@@ -138,6 +138,13 @@ public class CharController : MonoBehaviour
                 isGrounded = false;
                 isInTheAir = true;
             }
+        }
+
+        Debug.DrawRay(character.transform.position, Vector3.forward * 5.5f, Color.yellow);
+        RaycastHit hit;
+        if (Physics.Raycast(character.transform.position, Vector3.forward * 5.5f, out hit))
+        {
+
         }
 
 

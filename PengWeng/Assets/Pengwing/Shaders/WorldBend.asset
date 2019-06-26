@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78b2425a2284af743826c689403a4924, type: 3}
+  m_Name: WorldBend
+  m_EditorClassIdentifier: 
+  m_functionInfo: "// Made with Amplify Shader Editor\n// Available at the Unity Asset
+    Store - http://u3d.as/y3X \n/*ASEBEGIN\nVersion=16100\n25;878;1322;700;1272.977;552.8932;1.301129;True;False\nNode;AmplifyShaderEditor.PowerNode;6;-357.6728,-224.4592;Float;False;2;0;FLOAT;0;False;1;FLOAT;1;False;1;FLOAT;0\nNode;AmplifyShaderEditor.WorldPosInputsNode;1;-858.7841,-310.422;Float;False;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3\nNode;AmplifyShaderEditor.PosVertexDataNode;7;-449.9179,-399.8438;Float;False;0;0;5;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.Vector3Node;5;-311.8508,27.88082;Float;False;Property;_BendDirection;BendDirection;2;0;Create;False;0;0;False;0;0,0,0;0,0,0;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3\nNode;AmplifyShaderEditor.Vector3Node;2;-840.4499,-110.0526;Float;False;Property;_BendOrigin;BendOrigin;1;0;Create;False;0;0;False;0;0,0,0;0,0,0;0;4;FLOAT3;0;FLOAT;1;FLOAT;2;FLOAT;3\nNode;AmplifyShaderEditor.WorldToObjectTransfNode;12;151.7894,-283.5145;Float;False;1;0;FLOAT4;0,0,0,1;False;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.DistanceOpNode;3;-633.2328,-243.6445;Float;False;2;0;FLOAT3;0,0,0;False;1;FLOAT3;0,0,0;False;1;FLOAT;0\nNode;AmplifyShaderEditor.SimpleAddOpNode;11;9.952782,-282.4745;Float;False;2;2;0;FLOAT4;0,0,0,0;False;1;FLOAT3;0,0,0;False;1;FLOAT4;0\nNode;AmplifyShaderEditor.ObjectToWorldTransfNode;10;-249.6984,-398.8022;Float;False;1;0;FLOAT4;0,0,0,1;False;5;FLOAT4;0;FLOAT;1;FLOAT;2;FLOAT;3;FLOAT;4\nNode;AmplifyShaderEditor.SimpleMultiplyOpNode;9;-120.6337,-144.0258;Float;False;3;3;0;FLOAT;0;False;1;FLOAT;0;False;2;FLOAT3;0,0,0;False;1;FLOAT3;0\nNode;AmplifyShaderEditor.RangedFloatNode;8;-319.0557,-114.4033;Float;False;Property;_BendMultiplier;BendMultiplier;3;0;Create;True;0;0;False;0;0;-0.03;0;0;0;1;FLOAT;0\nNode;AmplifyShaderEditor.RangedFloatNode;16;-571.6687,-56.51244;Float;False;Property;_BendAmount;BendAmount;3;0;Create;True;0;0;False;0;0;0;0;5;0;1;FLOAT;0\nNode;AmplifyShaderEditor.FunctionOutput;0;366.1001,-283.5632;Float;False;True;Output;0;False;1;0;FLOAT4;0,0,0,0;False;1;FLOAT4;0\nWireConnection;6;0;3;0\nWireConnection;6;1;16;0\nWireConnection;12;0;11;0\nWireConnection;3;0;1;0\nWireConnection;3;1;2;0\nWireConnection;11;0;10;0\nWireConnection;11;1;9;0\nWireConnection;10;0;7;0\nWireConnection;9;0;6;0\nWireConnection;9;1;8;0\nWireConnection;9;2;5;0\nWireConnection;0;0;12;0\nASEEND*/\n//CHKSM=A230AF284A517293994F2AFD24EDD88A1B2CA7D9"
+  m_functionName: 
+  m_description: 
+  m_additionalIncludes:
+    m_additionalIncludes: []
+    m_outsideIncludes: []
+  m_additionalPragmas:
+    m_additionalPragmas: []
+    m_outsidePragmas: []
+  m_additionalDirectives:
+    m_validData: 0
+    m_isDirty: 0
+    m_moduleName: ' Additional Directives'
+    m_independentModule: 1
+    m_additionalDirectives: []
+    m_shaderFunctionDirectives: []
+    m_nativeDirectives: []
+    m_nativeDirectivesFoldout: 0
+    m_directivesSaveItems: []
+  m_nodeCategory: 3
+  m_customNodeCategory: 
+  m_previewPosition: 0

@@ -95,12 +95,12 @@ Shader "Custom/Curved_WhiteColor" {
               
               //o.lightDir = WorldSpaceLightDir(v.vertex); // light direction for snow ramp
               
-              float4 snowC = mul(_SnowAngle , unity_ObjectToWorld); // snow direction convertion to worldspace
+              // float4 snowC = mul(_SnowAngle , unity_ObjectToWorld); // snow direction convertion to worldspace
               
-              if (dot(v.normal, snowC.xyz) >= _SnowSize ) 
-                {
-                    v.vertex.xyz += v.normal * _Height;// scale vertices along normal
-                }
+              // if (dot(v.normal, snowC.xyz) >= _SnowSize ) 
+              //   {
+              //       v.vertex.xyz += v.normal * _Height;// scale vertices along normal
+              //   }
                 
                 
               v.vertex = Curve(v.vertex);
@@ -110,13 +110,14 @@ Shader "Custom/Curved_WhiteColor" {
         {
               fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
               
-              //o.Normal = UnpackNormal (tex2D (_Bump, IN.uv_Bump));
+              // o.Normal = UnpackNormal (tex2D (_Bump, IN.uv_Bump));
               
               if(dot(WorldNormalVector(IN, o.Normal), _SnowDirection.xyz)>=lerp(1,-1,_Snow))
                 {
                     o.Albedo = _SnowColor.rgb;
                 }
-                else {
+                else 
+                {
                     o.Albedo = c.rgb;
                 }
                 o.Alpha = 1;

@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 [ExecuteInEditMode]
 public class CurveController : MonoBehaviour
 {
 
     public Transform CurveOrigin;
+
+    public float worldBendAmount;
 
     [Range(-500f, 500f)]
     [SerializeField]
@@ -19,7 +22,9 @@ public class CurveController : MonoBehaviour
     [Range(0f, 50f)]
     [SerializeField]
     public float falloff = 0f;
+
     public Transform player;
+
 
     private Vector2 bendAmount = Vector2.zero;
 
@@ -27,13 +32,16 @@ public class CurveController : MonoBehaviour
     private int bendAmountId;
     private int bendOriginId;
     private int bendFalloffId;
+    private int bendDirectionId;
 
     void Start()
     {
 
-        bendAmountId = Shader.PropertyToID("_BendAmount");
-        bendOriginId = Shader.PropertyToID("_BendOrigin");
-        bendFalloffId = Shader.PropertyToID("_BendFalloff");
+        bendAmountId = Shader.PropertyToID("WorldBendAmount");
+        //     bendOriginId = Shader.PropertyToID("_BendOrigin");
+        //     bendFalloffId = Shader.PropertyToID("_BendFalloff");
+        //     bendDirectionId = Shader.PropertyToID("_BendDirection");
+
     }
 
     void Update()
@@ -41,9 +49,10 @@ public class CurveController : MonoBehaviour
         bendAmount.x = x;
         bendAmount.y = y;
 
-        Shader.SetGlobalVector(bendAmountId, bendAmount);
-        Shader.SetGlobalVector(bendOriginId, CurveOrigin.position);
-        Shader.SetGlobalFloat(bendFalloffId, falloff);
+        // Shader.SetGlobalVector(bendAmountId, bendAmount);
+        // Shader.SetGlobalVector(bendOriginId, CurveOrigin.position);
+        // Shader.SetGlobalFloat(bendFalloffId, falloff);
+        Shader.SetGlobalFloat(bendAmountId, worldBendAmount);
     }
 
 }
