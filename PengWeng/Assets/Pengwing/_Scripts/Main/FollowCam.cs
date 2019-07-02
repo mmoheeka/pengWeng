@@ -25,11 +25,11 @@ public class FollowCam : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        cameraOffset = transform.position - camTarget.position;
-        cameraOffset.y -= 3;
-        cameraOffset.z -= 3;
-
         cam = GetComponent<Camera>();
+
+        // cameraOffset.y -= 3;
+        // cameraOffset.z -= 3;
+
 
         //cam.fieldOfView = cameraPullAmount;
     }
@@ -37,7 +37,7 @@ public class FollowCam : MonoBehaviour
 
     void Update()
     {
-
+        cameraOffset = (transform.position - camTarget.position);
         Vector3 desiredPosition = camTarget.position + cameraOffset;
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
         transform.position = smoothedPosition;

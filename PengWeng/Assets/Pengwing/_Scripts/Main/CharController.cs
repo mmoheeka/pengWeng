@@ -11,9 +11,6 @@ public class CharController : MonoBehaviour
     public delegate void HittingRamp();
     public event HittingRamp hittingRamp;
 
-    public delegate void CollectedCrystal();
-    public event CollectedCrystal collectedCrystal;
-
     public GameObject character;
     public GameObject mainCam;
     public Vector3 currentLerpPos;
@@ -121,6 +118,7 @@ public class CharController : MonoBehaviour
                 {
                     isInTheAir = false;
                     isGrounded = true;
+                    playerParticles.enabled = true;
                     playerParticles.rateOverTime = 10f;
 
                 }
@@ -139,14 +137,6 @@ public class CharController : MonoBehaviour
                 isInTheAir = true;
             }
         }
-
-        Debug.DrawRay(character.transform.position, Vector3.forward * 5.5f, Color.yellow);
-        RaycastHit hit;
-        if (Physics.Raycast(character.transform.position, Vector3.forward * 5.5f, out hit))
-        {
-
-        }
-
 
     }
 

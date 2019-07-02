@@ -2,21 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
-public class PengwingManager : MonoBehaviour
+public class PengwingManager : Singleton<PengwingManager>
 {
 
-    public CharController _charController;
-    public FollowCam _followCam;
-    public Rigidbody ragDollRB;
-    public float seconds;
-    public float minutes;
-    public int progressTime;
+    public TextMeshProUGUI crystalCounter;
     public Slider progressBar;
-    private float timer;
-    public float rampTimer;
 
-    public int crystalCount;
+    [SerializeField]
+    private int progressTime;
+
+    private CharController _charController;
+    private FollowCam _followCam;
+    private WorldTileManager _worldTileManager;
+
+    private float seconds;
+    private float minutes;
+    private float timer;
+    private float rampTimer;
+    private int crystalCount;
 
     public delegate void AddRamp();
     public event AddRamp addRamp;
@@ -24,15 +29,21 @@ public class PengwingManager : MonoBehaviour
 
     void Start()
     {
+
+        _worldTileManager = FindObjectOfType<WorldTileManager>();
         _charController = FindObjectOfType<CharController>();
+        _followCam = FindObjectOfType<FollowCam>();
         // Game events updated here //
+
         _charController.playerHasDied += UpdatePlayerDeath;
         _charController.hittingRamp += RampHit;
-        _charController.collectedCrystal += CollectedCrystal;
+        // _crystal.collectedCrystal += CollectedCrystal;
     }
 
     void Update()
     {
+        crystalCounter.text = crystalCount.ToString();
+
         timer += Time.deltaTime;
         seconds = timer % 60;
         minutes = timer / 60;
@@ -51,18 +62,13 @@ public class PengwingManager : MonoBehaviour
             }
             rampTimer = 0;
         }
-
-
-    }
-
-    void AddCrystalValue()
-    {
-
     }
 
     void OnDestroy()
     {
         _charController.playerHasDied -= UpdatePlayerDeath;
+        _charController.hittingRamp -= RampHit;
+        // _crystal.collectedCrystal -= CollectedCrystal;
     }
 
     void UpdatePlayerDeath()
@@ -73,20 +79,26 @@ public class PengwingManager : MonoBehaviour
 
         _charController.character.transform.GetChild(1).gameObject.SetActive(true);
         GameObject.Destroy(_charController.character.transform.GetChild(2).gameObject);
-        ragDollRB = _charController.character.transform.GetChild(1).transform.GetChild(1).GetComponentInChildren<Rigidbody>();
+        Rigidbody ragDollRB = _charController.character.transform.GetChild(1).transform.GetChild(1).GetComponentInChildren<Rigidbody>();
         ragDollRB.AddForce(Vector3.up * 5, ForceMode.Impulse);
     }
 
     void RampHit()
     {
         _followCam.StartCoroutine("SpeedPowerUpOn");
-        // CharController.playerParticles.enabled = false;
+        CharController.playerParticles.enabled = false;
 
     }
 
-    void CollectedCrystal()
+    public void CollectedCrystal()
     {
-        // Add all coin collection information here since UI is in this script //
+        crystalCount++;
+
+    }
+
+
+    public void LevelComplete()
+    {
 
     }
 
