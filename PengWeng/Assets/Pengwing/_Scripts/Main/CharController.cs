@@ -11,8 +11,12 @@ public class CharController : MonoBehaviour
     public delegate void HittingRamp();
     public event HittingRamp hittingRamp;
 
+
+
+    public GameObject sibling;
+
     public GameObject character;
-    public GameObject mainCam;
+    // public GameObject mainCam;
     public Vector3 currentLerpPos;
     public Rigidbody rb;
     public int laneNumber;
@@ -33,9 +37,10 @@ public class CharController : MonoBehaviour
     public enum CurrentLane { Left, Center, Right };
     public CurrentLane currentLane;
 
-    public WorldTileManager m_worldTileManager;
+    public WorldTileManager _worldTileManager;
 
     public static ParticleSystem.EmissionModule playerParticles;
+    public static ParticleSystem.EmissionModule siblingParticles;
     public static bool canRaycast;
 
     private Vector3 startVector;
@@ -54,7 +59,8 @@ public class CharController : MonoBehaviour
         rb = character.GetComponent<Rigidbody>();
         startQuaternion = rb.rotation;
         playerParticles = this.GetComponentInChildren<ParticleSystem>().emission;
-        m_worldTileManager = FindObjectOfType<WorldTileManager>();
+        siblingParticles = sibling.GetComponent<ParticleSystem>().emission;
+        _worldTileManager = FindObjectOfType<WorldTileManager>();
         m_pengWingManager = FindObjectOfType<PengwingManager>();
 
 
@@ -64,7 +70,16 @@ public class CharController : MonoBehaviour
     void Update()
     {
 
+        //==========================================================================================================
+
+        // All input code for laptop / mobile
+
+        //==========================================================================================================
+
+
         LaneMonitor();
+
+#if UNITY_EDITOR
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
@@ -105,6 +120,22 @@ public class CharController : MonoBehaviour
             }
         }
 
+#elif UNITY_IOS
+
+
+        
+
+
+
+
+#endif
+
+
+        //==========================================================================================================
+
+        // All other updates (mostly raycast handling)
+
+        //==========================================================================================================
 
         if (canRaycast)
         {
@@ -120,6 +151,7 @@ public class CharController : MonoBehaviour
                     isGrounded = true;
                     playerParticles.enabled = true;
                     playerParticles.rateOverTime = 10f;
+                    siblingParticles.rateOverTime = 10;
 
                 }
 
@@ -168,7 +200,8 @@ public class CharController : MonoBehaviour
         isGrounding = false;
         while (currentLerpTime < lerpTime && isJumping)
         {
-            playerParticles.rateOverTime = 0f;
+            siblingParticles.rateOverTime = 0;
+            playerParticles.rateOverTime = 0;
             currentLerpTime += Time.deltaTime;
             if (currentLerpTime > lerpTime)
             {
@@ -269,12 +302,12 @@ public class CharController : MonoBehaviour
     void CharacterTrajectory()
     {
 
-        float timer = 0;
-        timer += Time.deltaTime;
+        // float timer = 0;
+        // timer += Time.deltaTime;
 
         transform.Translate(Vector3.forward * Time.deltaTime * speed, Space.World);
         currentQuaternion = rb.rotation;
-        rb.rotation = Quaternion.Lerp(rb.rotation, startQuaternion, timer * thrust);
+        rb.rotation = Quaternion.Lerp(rb.rotation, startQuaternion, Time.deltaTime * thrust);
 
         float angleDelta = Quaternion.Angle(startQuaternion, currentQuaternion);
         //Debug.Log(angleDelta);

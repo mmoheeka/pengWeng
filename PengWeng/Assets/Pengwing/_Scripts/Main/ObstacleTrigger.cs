@@ -9,20 +9,10 @@ public class ObstacleTrigger : MonoBehaviour
     public Transform staticObj;
     public Transform shardParent;
 
-    void Start()
-    {
-
-        // rb = GetComponent<Rigidbody>();
-
-    }
-
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "PlayerRoot")
         {
-            m_pengwingManager = GameObject.FindWithTag("GameManager").GetComponent<PengwingManager>();
-            m_charController = other.gameObject.GetComponentInParent<CharController>();
-
             Vector3 direction = other.contacts[0].point - Vector3.forward;
             direction = direction.normalized;
 
@@ -39,16 +29,7 @@ public class ObstacleTrigger : MonoBehaviour
                 shardObjects.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             }
 
-            // Force sets a lot of things controlling the character
-            //================================================================================================================
-
-            m_charController.isGrounded = false;
-            m_charController.PlayerHasDied();
-            m_charController.thrust = 0;
-            m_charController.m_worldTileManager.maxSpeed = 0;
-            m_charController.speed = 0;
-            CharController.canRaycast = false;
-            CharController.playerParticles.rateOverTime = 0;
+            PengwingManager.Instance.UpdatePlayerDeath();
         }
     }
 }

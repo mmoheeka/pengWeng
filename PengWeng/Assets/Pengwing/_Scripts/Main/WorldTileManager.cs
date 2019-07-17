@@ -8,6 +8,11 @@ public class WorldTileManager : MonoBehaviour
 
     public bool rampTest;
 
+    [Header("This bool is used for testing")]
+    public bool testSpeedSwitch;
+    public float testSpeed;
+
+
     /** Max Number of Tiles visible at one time */
     static int MAX_TILES = 4;
 
@@ -111,10 +116,18 @@ public class WorldTileManager : MonoBehaviour
     /** Increase speed by given amount */
     public void IncreaseSpeed(float amt)
     {
-        speed += amt;
-        if (speed > maxSpeed)
+        if (testSpeedSwitch)
         {
-            speed = maxSpeed;
+            speed = testSpeed;
+        }
+        else
+        {
+            speed += amt;
+            if (speed > maxSpeed)
+            {
+                speed = maxSpeed;
+            }
+
         }
     }
 
