@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PengwingManager : Singleton<PengwingManager>
 {
-    public GameObject[] allPlayers;
+
 
     public TextMeshProUGUI crystalCounter;
     public Slider progressBar;
     public Image blackScreen;
+    public int currentLevel = 1;
 
     [SerializeField]
-    private int progressTime;
+    private float progressTime;
 
     private CharController _charController;
     private FollowCam _followCam;
@@ -21,47 +23,40 @@ public class PengwingManager : Singleton<PengwingManager>
 
     private float seconds;
     private float minutes;
+    [SerializeField]
     private float timer;
     private float rampTimer;
     private int crystalCount;
+    private GameObject[] allPlayers;
 
     public delegate void AddRamp();
     public event AddRamp addRamp;
 
+    void Awake()
+    {
+        PlayerPrefs.GetInt("CurrentLevel");
+
+    }
 
     void Start()
     {
+        StartCoroutine(StartTimer());
         allPlayers = GameObject.FindGameObjectsWithTag("PlayerRoot");
         _worldTileManager = FindObjectOfType<WorldTileManager>();
         _charController = FindObjectOfType<CharController>();
         _followCam = FindObjectOfType<FollowCam>();
-        // Game events updated here //
 
-        _charController.playerHasDied += UpdatePlayerDeath;
-        _charController.hittingRamp += RampHit;
-        // _crystal.collectedCrystal += CollectedCrystal;
     }
 
     void Update()
     {
+
+        if (Input.GetKeyDown(KeyCode.G)) Debug.Log(PlayerPrefs.GetInt("CurrentLevel"));
+
         crystalCounter.text = crystalCount.ToString();
 
-        timer += Time.deltaTime;
-        seconds = timer % 60;
-        minutes = timer / 60;
+
         rampTimer += Time.deltaTime;
-
-        if (timer > 0)
-        {
-            progressBar.value = minutes / progressTime;
-
-            if (progressBar.value >= 1)
-            {
-                LevelComplete();
-                //Pause Editor for testing new level
-                Debug.Break();
-            }
-        }
 
         if (rampTimer >= 30)
         {
@@ -72,19 +67,42 @@ public class PengwingManager : Singleton<PengwingManager>
             rampTimer = 0;
         }
 
+
         if (Input.GetKeyDown(KeyCode.Space))
         {
             LevelComplete();
+
         }
 
     }
 
-    void OnDestroy()
+    IEnumerator StartTimer()
     {
-        _charController.playerHasDied -= UpdatePlayerDeath;
-        _charController.hittingRamp -= RampHit;
-        // _crystal.collectedCrystal -= CollectedCrystal;
+
+        while (timer < progressTime)
+        {
+
+            timer += Time.deltaTime;
+            seconds = timer % 60;
+            minutes = timer / 60;
+
+            if (timer > 0)
+            {
+                progressBar.value = seconds / progressTime;
+
+                if (progressBar.value >= 1)
+                {
+                    LevelComplete();
+                    //Pause Editor for testing new level
+                    // Debug.Break();
+                }
+            }
+
+            yield return null;
+        }
+
     }
+
 
     public void UpdatePlayerDeath()
     {
@@ -118,6 +136,11 @@ public class PengwingManager : Singleton<PengwingManager>
         GameOver();
     }
 
+    public void HitRamp()
+    {
+        _followCam.SpeedPowerUpOn();
+    }
+
     void RampHit()
     {
         _followCam.StartCoroutine("SpeedPowerUpOn");
@@ -128,19 +151,28 @@ public class PengwingManager : Singleton<PengwingManager>
     public void CollectedCrystal()
     {
         crystalCount++;
-
     }
 
     //This is used when level is won/complete
     public void LevelComplete()
     {
+        currentLevel++;
+        PlayerPrefs.SetInt("CurrentLevel", currentLevel);
+
         var AlphaOn = new Color(0.74f, 0.81f, 0.90f, 1);
         var AlphaOff = new Color(0.74f, 0.81f, 0.90f, 0);
 
-        LeanTween.value(gameObject, AlphaOff, AlphaOn, 1f).setOnUpdate((Color val) =>
+        LeanTween.value(gameObject, AlphaOff, AlphaOn, .5f).setOnUpdate((Color val) =>
         {
             blackScreen.color = val;
-        });
+        }).setOnComplete(LoadingScreen);
+
+    }
+
+    public void LoadingScreen()
+    {
+        SceneManager.LoadScene("LoadingScreen");
+        // Debug.Log("loading screen");
     }
 
     //This is used when player dies
@@ -155,14 +187,6 @@ public class PengwingManager : Singleton<PengwingManager>
         }).setDelay(1);
     }
 
-    void SavePlayerProgress()
-    {
 
-    }
-
-    void LoadPlayerProgress()
-    {
-
-    }
 
 }

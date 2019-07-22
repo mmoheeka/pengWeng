@@ -14,7 +14,7 @@ public class WorldTileManager : MonoBehaviour
 
 
     /** Max Number of Tiles visible at one time */
-    static int MAX_TILES = 4;
+    static int MAX_TILES = 2;
 
     /** Max speed of tiles */
     [Range(0f, 150f)]

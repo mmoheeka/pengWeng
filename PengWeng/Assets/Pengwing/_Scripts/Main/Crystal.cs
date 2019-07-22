@@ -27,10 +27,10 @@ public class Crystal : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            PengwingManager.Instance.CollectedCrystal();
-
+            // PengwingManager.Instance.CollectedCrystal();
+            PengwingManager pManager = FindObjectOfType<PengwingManager>();
+            pManager.CollectedCrystal();
             LeanTween.moveY(this.gameObject, this.transform.position.y + 2, .15f).setOnComplete(ScaleAnimation);
-
         }
     }
 

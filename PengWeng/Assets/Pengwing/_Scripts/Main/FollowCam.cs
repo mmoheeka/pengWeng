@@ -44,7 +44,7 @@ public class FollowCam : MonoBehaviour
 
     }
 
-    IEnumerator SpeedPowerUpOn()
+    public IEnumerator SpeedPowerUpOn()
     {
         if (camZoomOut) yield break;
         camZoomOut = true;
@@ -72,7 +72,7 @@ public class FollowCam : MonoBehaviour
     }
 
 
-    IEnumerator SpeedPowerUpOff()
+    public IEnumerator SpeedPowerUpOff()
     {
         lerpTime = 2;
         currentLerpTime = 0;

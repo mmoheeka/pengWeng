@@ -11,25 +11,29 @@ public class MobileTouchTesting : MonoBehaviour
     public TextMeshProUGUI contactEnd;
     public TextMeshProUGUI deltaAmount;
     public TextMeshProUGUI isDragMet;
-    public Image signifier;
+    public enum SwipeType { none, left, right, up, down };
+    public SwipeType swipeType;
+
+    // public Image signifier;
 
     private Vector3 fp;   //First touch position
     private Vector3 lp;   //Last touch position
     private float dragDistance;  //minimum distance for a swipe to be registered
 
-    void Start()
+    public virtual void Start()
     {
         dragDistance = Screen.height * 15 / 100; //dragDistance is 15% height of the screen
         Debug.Log(dragDistance);
     }
 
-    void Update()
+    public virtual void Update()
     {
+        
         if (Input.touchCount == 1) // user is touching the screen with a single touch
         {
             Touch touch = Input.GetTouch(0); // get the touch
-            signifier.gameObject.SetActive(true);
-            signifier.transform.position = touch.position;
+            // signifier.gameObject.SetActive(true);
+            // signifier.transform.position = touch.position;
 
             if (touch.phase == TouchPhase.Began) //check for the first touch
             {
@@ -58,10 +62,12 @@ public class MobileTouchTesting : MonoBehaviour
                         if ((lp.x > fp.x))  //If the movement was to the right)
                         {   //Right swipe
                             Debug.Log("Right Swipe");
+                            swipeType = SwipeType.right;
                         }
                         else
                         {   //Left swipe
                             Debug.Log("Left Swipe");
+                            swipeType = SwipeType.left;
                         }
 
                     }
@@ -70,10 +76,12 @@ public class MobileTouchTesting : MonoBehaviour
                         if (lp.y > fp.y)  //If the movement was up
                         {   //Up swipe
                             Debug.Log("Up Swipe");
+                            swipeType = SwipeType.up;
                         }
                         else
                         {   //Down swipe
                             Debug.Log("Down Swipe");
+                            swipeType = SwipeType.down;
                         }
                     }
                 }
@@ -81,12 +89,13 @@ public class MobileTouchTesting : MonoBehaviour
                 {   //It's a tap as the drag distance is less than 20% of the screen height
                     Debug.Log("Tap");
                     isDragMet.text = "false";
+                    swipeType = SwipeType.none;
                 }
             }
         }
-        else
-        {
-            signifier.gameObject.SetActive(false);
-        }
+        // else
+        // {
+        // signifier.gameObject.SetActive(false);
+        // }
     }
 }

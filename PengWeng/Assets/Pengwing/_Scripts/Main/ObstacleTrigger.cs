@@ -11,7 +11,7 @@ public class ObstacleTrigger : MonoBehaviour
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "PlayerRoot")
+        if (other.gameObject.tag == "Player")
         {
             Vector3 direction = other.contacts[0].point - Vector3.forward;
             direction = direction.normalized;
@@ -29,7 +29,8 @@ public class ObstacleTrigger : MonoBehaviour
                 shardObjects.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             }
 
-            PengwingManager.Instance.UpdatePlayerDeath();
+            PengwingManager pManager = FindObjectOfType<PengwingManager>();
+            pManager.UpdatePlayerDeath();
         }
     }
 }

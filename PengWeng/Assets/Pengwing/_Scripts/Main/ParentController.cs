@@ -30,10 +30,10 @@ public class ParentController : MonoBehaviour
     void Update()
     {
 
-        currentQuaternion = rb.rotation;
-        rb.rotation = Quaternion.Lerp(rb.rotation, startQuaternion, Time.deltaTime * 5);
+        // currentQuaternion = rb.rotation;
+        // rb.rotation = Quaternion.Lerp(rb.rotation, startQuaternion, Time.deltaTime * 5);
 
-        float angleDelta = Quaternion.Angle(startQuaternion, currentQuaternion);
+        // float angleDelta = Quaternion.Angle(startQuaternion, currentQuaternion);
 
 
         wantedPosition = new Vector3(target.position.x, target.position.y + height, target.position.z + distance);

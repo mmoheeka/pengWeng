@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CharController : MonoBehaviour
+public class CharController : MobileTouchTesting
 {
 
     public delegate void PlayerDead();
@@ -51,7 +51,7 @@ public class CharController : MonoBehaviour
 
 
     // Use this for initialization
-    void Start()
+    public override void Start()
     {
         canRaycast = true;
         character.transform.localPosition = transform.position;
@@ -59,7 +59,9 @@ public class CharController : MonoBehaviour
         rb = character.GetComponent<Rigidbody>();
         startQuaternion = rb.rotation;
         playerParticles = this.GetComponentInChildren<ParticleSystem>().emission;
-        siblingParticles = sibling.GetComponent<ParticleSystem>().emission;
+
+        if (sibling != null) siblingParticles = sibling.GetComponent<ParticleSystem>().emission;
+
         _worldTileManager = FindObjectOfType<WorldTileManager>();
         m_pengWingManager = FindObjectOfType<PengwingManager>();
 
@@ -67,19 +69,62 @@ public class CharController : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public override void Update()
     {
 
         //==========================================================================================================
 
-        // All input code for laptop / mobile
+        // All input code for mobile device
+
+        //==========================================================================================================
+
+
+        base.Update();
+        if (swipeType == SwipeType.up && !isInTheAir)
+        {
+            StartCoroutine(Jump());
+        }
+        if (swipeType == SwipeType.down && isJumping)
+        {
+            isJumping = false;
+            currentLerpTime = 0;
+            StopCoroutine(Jump());
+            StartCoroutine(Grounding());
+        }
+        if (swipeType == SwipeType.left)
+        {
+            if (laneNumber > -1)
+            {
+                laneNumber--;
+            }
+        }
+        if (swipeType == SwipeType.right)
+        {
+            if (laneNumber < 1)
+            {
+                laneNumber++;
+            }
+        }
+
+        if (isInTheAir)
+        {
+            if (swipeType == SwipeType.down)
+            {
+                StartCoroutine(Grounding());
+                isInTheAir = false;
+            }
+        }
+
+
+        //==========================================================================================================
+
+        // All input code for laptop
 
         //==========================================================================================================
 
 
         LaneMonitor();
 
-#if UNITY_EDITOR
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
@@ -120,16 +165,6 @@ public class CharController : MonoBehaviour
             }
         }
 
-#elif UNITY_IOS
-
-
-        
-
-
-
-
-#endif
-
 
         //==========================================================================================================
 
@@ -151,13 +186,14 @@ public class CharController : MonoBehaviour
                     isGrounded = true;
                     playerParticles.enabled = true;
                     playerParticles.rateOverTime = 10f;
-                    siblingParticles.rateOverTime = 10;
+                    if (sibling != null) siblingParticles.rateOverTime = 10;
 
                 }
 
                 if (objectHit.transform.tag == "Ramp")
                 {
-                    PlayerHitRamp();
+                    PengwingManager pManager = FindObjectOfType<PengwingManager>();
+                    pManager.HitRamp();
                     rb.AddForce(0, forceAmount, .0005f, ForceMode.Impulse);
                 }
 
@@ -200,7 +236,7 @@ public class CharController : MonoBehaviour
         isGrounding = false;
         while (currentLerpTime < lerpTime && isJumping)
         {
-            siblingParticles.rateOverTime = 0;
+            if (sibling != null) siblingParticles.rateOverTime = 0;
             playerParticles.rateOverTime = 0;
             currentLerpTime += Time.deltaTime;
             if (currentLerpTime > lerpTime)

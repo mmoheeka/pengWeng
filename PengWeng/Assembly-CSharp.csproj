@@ -103,6 +103,7 @@
      <Compile Include="Assets\Pengwing\_Scripts\Main\CurveController.cs" />
      <Compile Include="Assets\Pengwing\_Scripts\Main\FollowCam.cs" />
      <Compile Include="Assets\Pengwing\_Scripts\Main\GameController.cs" />
+     <Compile Include="Assets\Pengwing\_Scripts\Main\LevelManager.cs" />
      <Compile Include="Assets\Pengwing\_Scripts\Main\LevelTiles.cs" />
      <Compile Include="Assets\Pengwing\_Scripts\Main\ObstacleTrigger.cs" />
      <Compile Include="Assets\Pengwing\_Scripts\Main\ParentController.cs" />

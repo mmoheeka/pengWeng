@@ -6,12 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Pengwing/__Scenes/Levels/LoadingScreen.unity
+    guid: 0e5283b115e34456198f82e91a191209
+  - enabled: 1
     path: Assets/Pengwing/__Scenes/Levels/Lvl_1.unity
     guid: 31ae182d43d304484bacb59004caf1e4
-  - enabled: 0
-    path: Assets/Pengwing/__Scenes/Levels/Lvl_2.unity
-    guid: 02dc247f3e4e648e7bf8a0fcb370c607
-  - enabled: 0
-    path: Assets/Pengwing/__Scenes/MobileTouchTesting_0.unity
-    guid: 6adffec80883e4e17b7dc66fe308b28a
+  - enabled: 1
+    path: Assets/Pengwing/__Scenes/Levels/Lvl_2.1.unity
+    guid: 2d7c95aa753954793b832f0718982c56
   m_configObjects: {}
