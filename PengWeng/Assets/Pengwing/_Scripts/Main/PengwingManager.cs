@@ -12,7 +12,8 @@ public class PengwingManager : Singleton<PengwingManager>
     public TextMeshProUGUI crystalCounter;
     public Slider progressBar;
     public Image blackScreen;
-    public int currentLevel = 1;
+    public int currentLevel = 0;
+    public int currentMiniGameLevel = 0;
 
     [SerializeField]
     private float progressTime;
@@ -32,11 +33,6 @@ public class PengwingManager : Singleton<PengwingManager>
     public delegate void AddRamp();
     public event AddRamp addRamp;
 
-    void Awake()
-    {
-        PlayerPrefs.GetInt("CurrentLevel");
-
-    }
 
     void Start()
     {
@@ -50,7 +46,6 @@ public class PengwingManager : Singleton<PengwingManager>
 
     void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.G)) Debug.Log(PlayerPrefs.GetInt("CurrentLevel"));
 
         crystalCounter.text = crystalCount.ToString();
@@ -93,8 +88,6 @@ public class PengwingManager : Singleton<PengwingManager>
                 if (progressBar.value >= 1)
                 {
                     LevelComplete();
-                    //Pause Editor for testing new level
-                    // Debug.Break();
                 }
             }
 
@@ -129,10 +122,6 @@ public class PengwingManager : Singleton<PengwingManager>
 
         }
 
-        // Rigidbody ragDollRB = _charController.character.transform.GetChild(1).transform.GetChild(1).GetComponentInChildren<Rigidbody>();
-        // ragDollRB.AddForce(Vector3.up * 5, ForceMode.Impulse);
-
-
         GameOver();
     }
 
@@ -165,17 +154,10 @@ public class PengwingManager : Singleton<PengwingManager>
         LeanTween.value(gameObject, AlphaOff, AlphaOn, .5f).setOnUpdate((Color val) =>
         {
             blackScreen.color = val;
-        }).setOnComplete(LoadingScreen);
+        }).setOnComplete(LoadNextLevel);
 
     }
 
-    public void LoadingScreen()
-    {
-        SceneManager.LoadScene("LoadingScreen");
-        // Debug.Log("loading screen");
-    }
-
-    //This is used when player dies
     public void GameOver()
     {
         var AlphaOn = new Color(0.74f, 0.81f, 0.90f, 1);
@@ -184,9 +166,31 @@ public class PengwingManager : Singleton<PengwingManager>
         LeanTween.value(gameObject, AlphaOff, AlphaOn, 2).setOnUpdate((Color val) =>
         {
             blackScreen.color = val;
-        }).setDelay(1);
+        }).setDelay(1).setOnComplete(ReloadLevel);
     }
 
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(currentLevel);
+    }
+
+    public void LoadNextLevel()
+    {
+        SceneManager.LoadScene(currentLevel);
+    }
+
+
+
+
+
+    #region Loading screen logic
+    // public void LoadingScreen()
+    // {
+    //     SceneManager.LoadScene("LoadingScreen");
+    //     // Debug.Log("loading screen");
+    // }
+    #endregion
 
 
 }

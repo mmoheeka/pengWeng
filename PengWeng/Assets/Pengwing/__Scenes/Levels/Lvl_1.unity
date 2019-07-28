@@ -1441,8 +1441,8 @@ MonoBehaviour:
   crystalCounter: {fileID: 1697706315}
   progressBar: {fileID: 2070865759}
   blackScreen: {fileID: 1124364713}
-  currentLevel: 1
-  progressTime: 180
+  currentLevel: 0
+  progressTime: 2
   timer: 0
 --- !u!4 &1074272936
 Transform:

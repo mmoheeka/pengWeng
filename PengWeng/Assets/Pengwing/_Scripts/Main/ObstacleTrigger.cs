@@ -5,14 +5,16 @@ using UnityEngine;
 public class ObstacleTrigger : MonoBehaviour
 {
     CharController m_charController;
-    PengwingManager m_pengwingManager;
     public Transform staticObj;
     public Transform shardParent;
 
     void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.tag == "Player")
+        if (other.gameObject.tag == "PlayerRoot")
         {
+            PengwingManager pManager = FindObjectOfType<PengwingManager>();
+            pManager.UpdatePlayerDeath();
+
             Vector3 direction = other.contacts[0].point - Vector3.forward;
             direction = direction.normalized;
 
@@ -29,8 +31,6 @@ public class ObstacleTrigger : MonoBehaviour
                 shardObjects.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
             }
 
-            PengwingManager pManager = FindObjectOfType<PengwingManager>();
-            pManager.UpdatePlayerDeath();
         }
     }
 }
